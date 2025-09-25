@@ -1,0 +1,11 @@
+﻿  cpu_load.cpp
+F:\cpu\cpu\cpu_load.cpp(7,13): warning C4244: 'initializing': conversion from 'Word' to 'Byte', possible loss of data
+F:\cpu\cpu\cpu_load.cpp(14,15): warning C4244: 'initializing': conversion from 'Word' to 'Byte', possible loss of data
+F:\cpu\cpu\cpu_load.cpp(23,15): warning C4244: 'initializing': conversion from 'Word' to 'Byte', possible loss of data
+  cpu_store.cpp
+F:\cpu\cpu\cpu_store.cpp(9,15): warning C4244: 'initializing': conversion from 'Word' to 'Byte', possible loss of data
+  main.cpp
+F:\cpu\cpu\main.cpp(9,15): warning C4244: 'initializing': conversion from 'Word' to 'Byte', possible loss of data
+  misc.cpp
+  Generating Code...
+  cpu.vcxproj -> F:\cpu\x64\Debug\cpu.exe
