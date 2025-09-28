@@ -7,6 +7,8 @@ typedef uint8_t Byte;
 typedef uint16_t Word;
 
 enum Registers { A, X, Y, SP };// Addressing registers X Y
+enum ops { ADD, SUB };	// Arithmetic operations
+
       // Accumilator      // Stack Pointer
 using namespace std;
 
@@ -28,17 +30,26 @@ struct CPU {
 		};
 	};
 	Word Fetch(bool w_flag =0 );          // Reads next byte from program counter and updates register
+	Word IndirectAddress(int offset);			// Indirect index access to memory
+	Word AbsoluteAddress(int offset, int flag);	// Absolute address, flag for zero page and reg offset if exists		// misc
 	int ReturnCycles(int opcode);      // Returns number of cycles for opcode
 	int CopyCode(Byte* code, int len);         // Copies machine code to 0x200 returns number of cycles
 	void UpdateFlag(Byte value);     // Updates flag register based on value
 
 	void ExLD_I(int reg);       // Moves immediate value to register A
-	void ExLD_Z(int reg);      // Lda Zero Page
-	void ExLD_ZX(int reg);   // Lda Zero Page X
+	void ExLD_Z(int info);      // Lda Zero Page
 	void ExLD_A(int info);   // Lda Absolute										Load value
 	void ExLDA_I(int reg);   // Lda Indirect
 
-
+	void ExST_Z(int info); // Stores reg value in zero page address						// Storing values
+	void ExST_A(int info);    // Stores reg value in absolute address
+	void ExSTA_I(int reg);   // Sta Indirect
+																					// ADC / SBC
+	void UpdateA(int value, int op); // Updates accumalator and zero flags, according to value and op
+	void ExADC_I(int op);   // Add / Sub with carry immediate,		// Addition updates accumalator and updates carry, zero and sign flag 
+	void ExADC_Z(int info);		// ADC / SBC zero page
+	void ExADC_A(int info);		// Absolute					** first 2 bits contain op and second 2 bits contain offest if exists
+	void ExADC_In(int info);			// Adc Indirect
 
 	void Execute();		// Executes machine code
 	void ResetFlag();	// Resets flag register
@@ -57,45 +68,4 @@ struct CPU {
 extern int CopyCode(Byte* code, int len);         // Copies machine code to 0x200 returns number of cycles
 
 
-//void ALU(int op, Byte& operand1, Byte& operand2)
-	//{
-	//	cycles--;
-	//	switch (op) 
-	//	{
-	//	case ADD:
-	//		operand1 += operand2;
-	//		break;
-	//	case SUB:
-	//		operand1 -= operand2;
-	//		break;
-	//	case MUL:
-	//		operand1 *= operand2;
-	//		break;
-	//	case DIV:
-	//		operand1 /= operand2;
-	//		break;
-	//	case NOT:
-	//		operand1 = ~operand1;
-	//		break;
-	//	case OR:
-	//		operand1 |= operand2;
-	//		break;
-	//	case AND:
-	//		operand1 &= operand2;
-	//		break;
-	//	case XOR:
-	//		operand1 ^= operand2;
-	//		break;
-	//	case SHR:
-	//		operand1 >>= operand2;
-	//		break;
-	//	case SHL:
-	//		operand1 <<= operand2;
-	//		break;
-
-	//	default:
-	//		cerr << "ALU Error";
-	//		exit(1);
-	//	};
-	//}
 #endif

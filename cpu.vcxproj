@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="arithmetic_cpu.cpp" />
     <ClCompile Include="cpu_load.cpp" />
     <ClCompile Include="cpu_store.cpp" />
     <ClCompile Include="globals.cpp" />

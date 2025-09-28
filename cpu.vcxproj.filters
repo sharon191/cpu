@@ -33,6 +33,9 @@
     <ClCompile Include="cpu_store.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="arithmetic_cpu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globals.h">
