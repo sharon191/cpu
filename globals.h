@@ -3,6 +3,12 @@
 
 #include "Memory.h"
 extern Memory mem;			// Memory
+struct SystemBus {
+	Word adr_bus;
+	Byte data_bus;
+	Bit ctrl_line;
+};
+extern SystemBus sys_bus;
 extern int cycles;
 enum OPCODES {
 	// Immediate      // Zero Page		X			// Absolute		X			Y			// Indirect X    Y

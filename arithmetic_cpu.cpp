@@ -26,7 +26,7 @@ void CPU::ExADC_Z(int info)   // Add / Sub with carry Zero page
 	int op = info & 3;      // gets op index
 	int offset = (info & 0x0F) >> 2;  // gets index of register that will be added to address
 
-	Byte value = mem.ReadByte(AbsoluteAddress(offset, 0), cycles);		// Gets value from zero page address
+	Byte value = ReadByte(AbsoluteAddress(offset, 0), cycles);		// Gets value from zero page address
 	UpdateA(value, op);     // Adds value to A
 
 }
@@ -38,7 +38,7 @@ void CPU::ExADC_A(int info)		//ADC/SBC absolute
 	int op = info & 3;      // gets op index
 	int offset = (info & 0x0F) >> 2;  // gets index of register that will be added to address
 
-	Byte value = mem.ReadByte(AbsoluteAddress(offset, 1), cycles);		// Gets value from zero page address
+	Byte value = ReadByte(AbsoluteAddress(offset, 1), cycles);		// Gets value from zero page address
 	UpdateA(value, op);     // Adds value to A
 }
 
@@ -48,7 +48,7 @@ void CPU::ExADC_In(int info)			// Indirect ADC
 	int op = info & 3;      // gets op index
 	int offset = (info & 0x0F) >> 2;  // gets register that is indirect index
 
-	Byte value = mem.ReadByte(IndirectAddress(offset), cycles);   // Gets value from effective address
+	Byte value = ReadByte(IndirectAddress(offset), cycles);   // Gets value from effective address
 	UpdateA(value, op);     // Adds value to A
 }
 

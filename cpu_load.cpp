@@ -14,7 +14,7 @@ void CPU :: ExLD_Z(int info)      // Lda Zero Page
 	int reg = info & 3;      // gets register index
 	int offset = (info & 0x0F) >> 2;  // gets index of register that will be added to address
 
-	Byte value = mem.ReadByte(AbsoluteAddress(offset, 0), cycles);    // Value from address
+	Byte value = ReadByte(AbsoluteAddress(offset, 0), cycles);    // Value from address
 	this->Registers[reg] = value;
 	UpdateFlag(value);
 
@@ -27,7 +27,7 @@ void CPU :: ExLD_A(int info)   // Lda Absolute
 	int reg = info & 3;      // gets register index
 	int offset = (info & 0x0F) >> 2;  // gets index of register that will be added to address
 	
-	Byte value = mem.ReadByte(AbsoluteAddress(offset, 1), cycles);    // Value from address
+	Byte value = ReadByte(AbsoluteAddress(offset, 1), cycles);    // Value from address
 	this->Registers[reg] = value;
 	UpdateFlag(value);
 
@@ -35,7 +35,7 @@ void CPU :: ExLD_A(int info)   // Lda Absolute
 void CPU :: ExLDA_I(int reg)   // Lda Indirect
 {
 	// reg is indirect index
-	Byte value = mem.ReadByte(IndirectAddress(reg), cycles);       // Value from effective address
+	Byte value = ReadByte(IndirectAddress(reg), cycles);       // Value from effective address
 	this->Registers[A] = value;
 	UpdateFlag(value);
 

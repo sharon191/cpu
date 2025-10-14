@@ -12,6 +12,10 @@ enum ops { ADD, SUB };	// Arithmetic operations
       // Accumilator      // Stack Pointer
 using namespace std;
 
+extern Byte ReadByte(int adr, int& cycles);
+extern Word ReadWord(int adr, int& cycles);						// Decoding processor bus
+extern void WriteByte(int adr, Byte value, int& cycles);
+extern void WriteWord(int adr, Word value, int& cycles);
 struct CPU {
 	Byte Registers[4]; 
 	Word PC;      // Program Counter

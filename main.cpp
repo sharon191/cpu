@@ -3,7 +3,7 @@
 
 void CPU::Execute()
 {
-	while (cycles > 0)           // Clock tick
+	while (cycles > 0)           // clock ticks
 	{
 		ResetFlag();
 		Byte opcode = Fetch();       // Instruction opcode

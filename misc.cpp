@@ -43,11 +43,11 @@ Word CPU::Fetch(bool w_flag)          // Reads next byte from program counter an
 	Word instruction;
 	if (!w_flag)
 	{
-		instruction = mem.ReadByte(PC, cycles);          // Byte instruction
+		instruction = ReadByte(PC, cycles);          // Byte instruction
 		PC++;
 	}
 	else {
-		instruction = mem.ReadWord(PC, cycles);       // Word instruction
+		instruction = ReadWord(PC, cycles);       // Word instruction
 		PC += 2;
 	}
 	return instruction;
@@ -56,10 +56,10 @@ Word CPU::Fetch(bool w_flag)          // Reads next byte from program counter an
 Word CPU::IndirectAddress(int offset)
 {
 	Word address = Fetch();        // Gets low byte of address 
-	if (offset == Y) address = mem.ReadWord(address, cycles);     // In case of indirect index (Y)->  the effective address is the value + y
+	if (offset == Y) address = ReadWord(address, cycles);     // In case of indirect index (Y)->  the effective address is the value + y
 	address += this->Registers[offset];    // Adds register to address if X or Y to
 	cycles--;       // ALU takes cycle
-	if (offset == X) address = mem.ReadWord(address, cycles);    // in case of indirect X-> Reads bytes of data to get effective address
+	if (offset == X) address = ReadWord(address, cycles);    // in case of indirect X-> Reads bytes of data to get effective address
 	return address; // Returns final effective address
 }
 Word CPU::AbsoluteAddress(int offset, int flag)	// Absolute address, flag for zero page and reg offset if exists	

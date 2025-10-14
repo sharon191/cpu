@@ -1,6 +1,6 @@
 #include "Memory.h"
 #include <iostream>
-
+#include "globals.h"
 
 void CycleError()
 {
@@ -12,33 +12,16 @@ void AddressError()
 
 }
 
-Byte Memory :: ReadByte(int adr, int& cycles)				// Reads byte from memory
+void Memory::Decode(int& cycles)
+{
+	if (sys_bus.adr_bus > 0xFFFF) AddressError();
+	if (cycles < 1) CycleError();
+	cycles--;
+	if (sys_bus.ctrl_line)	// read from memory
 	{
-		if (adr > 0xFFFF) AddressError();
-		if (cycles < 1) CycleError();
-		cycles -= 1;
-		return Data[adr];
+		sys_bus.data_bus = Data[sys_bus.adr_bus];
 	}
-Word Memory :: ReadWord(int adr, int& cycles)				// Reads word from memory
-	{
-		if (adr > 0xFFFE) AddressError();
-		if (cycles < 2) CycleError();
-		cycles -= 2;
-		return Data[adr] + (Data[adr + 1] << 8);
-
+	else {		// writes to memory
+		Data[sys_bus.adr_bus] = sys_bus.data_bus;
 	}
-void Memory :: WriteByte(int adr, Byte value, int& cycles)	// Writes byte to memory
-	{
-		if (adr > 0xFFFF) AddressError();
-		if (cycles < 1) CycleError();
-		cycles -= 1;
-		Data[adr] = value;
-	}
-void Memory ::  WriteWord(int adr, Word value, int& cycles)		// Writes word to memory
-	{
-		if (adr > 0xFFFE) AddressError();
-		if (cycles < 2) CycleError();
-
-		WriteByte(adr, value & 0x00FF, cycles);         // little endian
-		WriteByte(adr + 1, value >> 8, cycles);
-	}
+}
